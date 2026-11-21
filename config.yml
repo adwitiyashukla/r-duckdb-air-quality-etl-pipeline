@@ -1,0 +1,40 @@
+default:
+  years: [2016, 2025]
+  source:
+    base_url: "https://aqs.epa.gov/aqsweb/airdata"
+    user_agent: "air-quality-rebuild/1.0 (R httr2)"
+    timeout_seconds: 900
+    max_tries: 5
+    parallel_probes: 8
+  paths:
+    data: "data"
+    breakpoints: "ref/aqi_breakpoints.csv"
+  landing:
+    keep: true
+  duckdb:
+    memory_limit: "3GB"
+    threads: 4
+  bounds:
+    "44201": [-0.01, 1.0]
+    "42101": [-1.0, 100.0]
+    "42401": [-10.0, 2000.0]
+    "42602": [-10.0, 2100.0]
+    "81102": [-20.0, 10000.0]
+    "88101": [-20.0, 3000.0]
+    "88502": [-20.0, 3000.0]
+  quality:
+    max_reject_rate: 0.001
+    max_out_of_bounds_rate: 0.001
+    eighthour_match_min: 0.999
+    daily_match_min: 0.99
+    county_match_min: 0.995
+    cbsa_match_min: 0.995
+  serve:
+    api_port: 8000
+    app_port: 8080
+
+live:
+  years: [2024, 2024]
+  duckdb:
+    memory_limit: "4GB"
+    threads: 2

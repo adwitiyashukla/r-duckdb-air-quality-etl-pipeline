@@ -1,0 +1,6 @@
+data/
+_targets/
+renv/
+.Rhistory
+.RData
+.Rproj.user/
