@@ -15,14 +15,13 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: system libraries
         if: runner.os == 'Linux'
         run: sudo apt-get update && sudo apt-get install -y libsodium-dev libnode-dev libcurl4-openssl-dev libssl-dev libxml2-dev
       - uses: r-lib/actions/setup-r@v2
         with:
           r-version: "4.6.2"
-          use-public-rspm: true
       - uses: r-lib/actions/setup-renv@v2
       - name: tests
         run: Rscript -e "testthat::test_dir('tests/testthat', stop_on_failure = TRUE)"
@@ -35,13 +34,12 @@ jobs:
     env:
       R_CONFIG_ACTIVE: live
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: system libraries
         run: sudo apt-get update && sudo apt-get install -y libsodium-dev libnode-dev libcurl4-openssl-dev libssl-dev libxml2-dev
       - uses: r-lib/actions/setup-r@v2
         with:
           r-version: "4.6.2"
-          use-public-rspm: true
       - uses: r-lib/actions/setup-renv@v2
       - name: pipeline
         run: Rscript -e "targets::tar_make()"
