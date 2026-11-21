@@ -46,4 +46,4 @@ jobs:
       - name: match rates
         run: Rscript -e "targets::tar_source(); con <- open_warehouse(); print(DBI::dbGetQuery(con, 'select level, status, sum(n) as n from recon_summary group by all order by all'))"
       - name: second run rebuilds nothing
-        run: Rscript -e "targets::tar_make(); p <- targets::tar_progress(); stopifnot(all(p$progress[p$name != 'remote_index'] == 'skipped'))"
+        run: Rscript -e 'targets::tar_make(); p <- targets::tar_progress(); stopifnot(all(p[["progress"]][p[["name"]] != "remote_index"] == "skipped"))'
